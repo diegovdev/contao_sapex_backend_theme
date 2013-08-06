@@ -20,7 +20,7 @@ var Theme = {
 		var items = $(el).getChildren();
 		for (var i=0; i<items.length; i++) {
 			if (items[i].nodeName.toLowerCase() == 'td') {
-				items[i].setStyle('background-color', (state ? '#f3f8ee' : ''));
+				items[i].setStyle('background-color', (state ? '#ebfdd7' : ''));
 			}
 		}
 	},
@@ -34,7 +34,7 @@ var Theme = {
 		if (!state) {
 			el.removeAttribute('data-visited');
 		}
-		$(el).setStyle('background-color', (state ? '#f3f8ee' : ''));
+		$(el).setStyle('background-color', (state ? '#ebfdd7' : ''));
 	},
 
 	/**
@@ -156,21 +156,3 @@ window.addEvent('ajax_change', function() {
 	Theme.stopClickPropagation();
 	Theme.setupCtrlClick();
 });
-
-
-
-
-/* rococo: arrange header */
-window.onload = function(){
-    var headlinee = document.querySelectorAll(".main_headline");
-    var mainn = headlinee[0].parentNode;
-    var containerr = document.getElementById("container");
-    var buttonss = document.getElementById("tl_buttons");
-    var headlinecontainerr = document.createElement( 'div' );
-    headlinecontainerr.className = "main_headline_container";
-    headlinecontainerr.insertBefore(buttonss);
-    headlinecontainerr.insertBefore(headlinee[0], buttonss);
-    containerr.insertBefore(headlinecontainerr, mainn);
-};
-
-
