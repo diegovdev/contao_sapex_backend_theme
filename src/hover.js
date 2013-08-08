@@ -161,16 +161,53 @@ window.addEvent('ajax_change', function() {
 
 
 /* rococo: arrange header */
+function arrangeHeader() {
+    var headlinee = $$(".main_headline")[0];
+    var mainn = headlinee.parentNode;
+    var buttonss = $$("#tl_buttons");
+    var headlinecontainerr  = new Element('div', {'class': 'main_headline_container'});
+    buttonss.inject(headlinecontainerr, 'top');
+    headlinee.inject(headlinecontainerr, 'top');
+    headlinecontainerr.inject(mainn, 'before');
+}
+
+function checkFooter(e) {
+    var formBody = document.getElement('.tl_formbody_submit') || false;
+    var stickyClass = 'stickySave';
+    //restore sticky class if was wrongly erased
+    if(formBody && !document.body.hasClass(stickyClass)) {
+    
+        var raffle = formBody.getPosition().y + formBody.getFirst().getHeight(),
+            diff = raffle - window.getHeight(),
+            scrollSizeToInt = window.getScroll().y.toInt();
+        
+        //negative diff was causing malfunctioning
+        if(diff < 0)
+            diff = diff * (-1);
+            
+        if(scrollSizeToInt <= diff)
+            document.body.addClass(stickyClass);
+    }
+}
+
+function arrangeStickyFooter() {
+    window.addEvents({
+        'scroll': checkFooter,
+        'resize': checkFooter,
+        'ajax_change': checkFooter
+    });
+    var fieldsets = $$('fieldset');
+    //addEvent Delegation for legends
+    fieldsets.addEvent('click:relay(legend)', function(e){
+        checkFooter();
+    });
+    //Improvment for checkbox actions
+    fieldsets.addEvent('click:relay(input.tl_checkbox[onclick])', function(e){
+        checkFooter();
+    });
+}
+
 window.onload = function(){
-    var headlinee = document.querySelectorAll(".main_headline");
-    var mainn = headlinee[0].parentNode;
-    var containerr = document.getElementById("container");
-    var buttonss = document.getElementById("tl_buttons");
-    var headlinecontainerr = document.createElement( 'div' );
-    headlinecontainerr.className = "main_headline_container";
-    headlinecontainerr.insertBefore(buttonss);
-    headlinecontainerr.insertBefore(headlinee[0], buttonss);
-    containerr.insertBefore(headlinecontainerr, mainn);
+    arrangeHeader();
+    arrangeStickyFooter();
 };
-
-
