@@ -171,6 +171,7 @@ function arrangeHeader() {
     headlinecontainerr.inject(mainn, 'before');
 }
 
+/* rococo: check footer */
 function checkFooter(e) {
     var formBody = document.getElement('.tl_formbody_submit') || false;
     var stickyClass = 'stickySave';
@@ -190,6 +191,7 @@ function checkFooter(e) {
     }
 }
 
+/* rococo: arrange footer */
 function arrangeStickyFooter() {
     window.addEvents({
         'scroll': checkFooter,
